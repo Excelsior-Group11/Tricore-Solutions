@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"; // Removed SheetClose import
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { cn } from "@/lib/utils"; // Import cn for conditional class merging
+import { cn } from "@/lib/utils";
 
-const Header = () => {
+const Header: React.FC = () => { // Added React.FC type here
   const [scrolled, setScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to control mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,7 +16,6 @@ const Header = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Set initial state in case the page loads scrolled down
     handleScroll();
 
     return () => {
@@ -31,7 +30,7 @@ const Header = () => {
   ];
 
   const handleNavLinkClick = () => {
-    setIsMobileMenuOpen(false); // Explicitly close the mobile menu when a link is clicked
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -87,14 +86,14 @@ const Header = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={handleNavLinkClick} {/* Added onClick to close menu */}
+                  onClick={handleNavLinkClick}
                   className="text-lg font-medium text-brand-text-light hover:text-brand-primary-color transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
               <Button asChild className="mt-4 bg-gradient-to-r from-brand-primary-color to-brand-secondary-color text-brand-text-light font-bold text-base px-6 py-3 rounded-full shadow-brand-glow hover:scale-105 transition-all duration-300">
-                <a href="#contact" onClick={handleNavLinkClick}>Login</a> {/* Also close for Login button */}
+                <a href="#contact" onClick={handleNavLinkClick}>Login</a>
               </Button>
             </nav>
           </SheetContent>
