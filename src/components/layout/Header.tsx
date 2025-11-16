@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"; // Import cn for conditional class merging
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to control mobile menu
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +31,10 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleNavLinkClick = () => {
+    setIsMobileMenuOpen(false); // Close the mobile menu when a link is clicked
+  };
+
   return (
     <header
       className={cn(
@@ -38,15 +43,14 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        {/* Changed Link to <a> tag with href="#home" */}
         <a href="#home" className="flex items-center gap-2">
           <img
-            src="/Logo.png" // Using the new logo image
+            src="/Logo.png"
             alt="Tricore Solutions Logo"
-            className="max-h-12 h-auto w-auto rounded-full opacity-90" // Added rounded-full and opacity-90
+            className="max-h-12 h-auto w-auto rounded-full opacity-90"
             loading="lazy"
             onError={(e) => {
-              e.currentTarget.src = "/placeholder.svg"; // Fallback to a placeholder if it fails
+              e.currentTarget.src = "/placeholder.svg";
             }}
           />
           <span className="text-2xl font-bold text-brand-text-light hover:text-brand-primary-color transition-colors">
@@ -71,7 +75,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile Navigation */}
-        <Sheet>
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
             <Button variant="outline" size="icon" className="bg-brand-background-secondary text-brand-text-light hover:bg-brand-background-secondary/80 border-brand-accent-color/50">
               <Menu className="h-6 w-6" />
@@ -84,13 +88,14 @@ const Header = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={handleNavLinkClick} {/* Add onClick to close menu */}
                   className="text-lg font-medium text-brand-text-light hover:text-brand-primary-color transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
               <Button asChild className="mt-4 bg-gradient-to-r from-brand-primary-color to-brand-secondary-color text-brand-text-light font-bold text-base px-6 py-3 rounded-full shadow-brand-glow hover:scale-105 transition-all duration-300">
-                <a href="#contact">Login</a>
+                <a href="#contact" onClick={handleNavLinkClick}>Login</a> {/* Also close for Login button */}
               </Button>
             </nav>
           </SheetContent>
