@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"; // Import cn for conditional class merging
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false); // State to control mobile sheet
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +31,11 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
+  // Function to close the mobile sheet
+  const closeSheet = () => {
+    setIsSheetOpen(false);
+  };
+
   return (
     <header
       className={cn(
@@ -38,8 +44,7 @@ const Header = () => {
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        {/* Changed Link to <a> tag with href="#home" */}
-        <a href="#home" className="flex items-center gap-2">
+        <a href="#home" className="flex items-center gap-2" onClick={closeSheet}> {/* Close sheet on logo/name click */}
           <img
             src="/Logo.png" // Using the new logo image
             alt="Tricore Solutions Logo"
@@ -71,7 +76,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile Navigation */}
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}> {/* Control sheet state */}
           <SheetTrigger asChild className="md:hidden">
             <Button variant="outline" size="icon" className="bg-brand-background-secondary text-brand-text-light hover:bg-brand-background-secondary/80 border-brand-accent-color/50">
               <Menu className="h-6 w-6" />
@@ -84,13 +89,14 @@ const Header = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={closeSheet} // Close sheet when a link is clicked
                   className="text-lg font-medium text-brand-text-light hover:text-brand-primary-color transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
               <Button asChild className="mt-4 bg-gradient-to-r from-brand-primary-color to-brand-secondary-color text-brand-text-light font-bold text-base px-6 py-3 rounded-full shadow-brand-glow hover:scale-105 transition-all duration-300">
-                <a href="#contact">Login</a>
+                <a href="#contact" onClick={closeSheet}>Login</a> {/* Close sheet on Login click */}
               </Button>
             </nav>
           </SheetContent>
