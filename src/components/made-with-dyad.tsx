@@ -2,7 +2,7 @@ export const MadeWithDyad = () => {
   return (
     <div className="p-4 text-center">
       <a
-        href="https://tricore-solutions-pien4thw6-mahomed-altaaf-mahomeds-projects.vercel.app/"
+        href="https://tricore-solutions-nj8cxoea6-mahomed-altaaf-mahomeds-projects.vercel.app"
         target="_blank"
         rel="noopener noreferrer"
         className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
