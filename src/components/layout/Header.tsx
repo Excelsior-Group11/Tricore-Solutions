@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"; // Import SheetClose
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"; // Removed SheetClose import
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils"; // Import cn for conditional class merging
 
@@ -30,10 +30,9 @@ const Header = () => {
     { name: "Contact", href: "#contact" },
   ];
 
-  // No longer need handleNavLinkClick directly on <a> tags, SheetClose handles it.
-  // const handleNavLinkClick = () => {
-  //   setIsMobileMenuOpen(false); // Close the mobile menu when a link is clicked
-  // };
+  const handleNavLinkClick = () => {
+    setIsMobileMenuOpen(false); // Explicitly close the mobile menu when a link is clicked
+  };
 
   return (
     <header
@@ -85,20 +84,18 @@ const Header = () => {
           <SheetContent side="right" className="bg-brand-background-primary text-brand-text-light border-l-brand-accent-color/30">
             <nav className="flex flex-col gap-4 pt-6">
               {navLinks.map((link) => (
-                <SheetClose asChild key={link.name}> {/* Wrap with SheetClose */}
-                  <a
-                    href={link.href}
-                    className="text-lg font-medium text-brand-text-light hover:text-brand-primary-color transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </SheetClose>
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={handleNavLinkClick} {/* Added onClick to close menu */}
+                  className="text-lg font-medium text-brand-text-light hover:text-brand-primary-color transition-colors"
+                >
+                  {link.name}
+                </a>
               ))}
-              <SheetClose asChild> {/* Wrap Login button with SheetClose */}
-                <Button asChild className="mt-4 bg-gradient-to-r from-brand-primary-color to-brand-secondary-color text-brand-text-light font-bold text-base px-6 py-3 rounded-full shadow-brand-glow hover:scale-105 transition-all duration-300">
-                  <a href="#contact">Login</a>
-                </Button>
-              </SheetClose>
+              <Button asChild className="mt-4 bg-gradient-to-r from-brand-primary-color to-brand-secondary-color text-brand-text-light font-bold text-base px-6 py-3 rounded-full shadow-brand-glow hover:scale-105 transition-all duration-300">
+                <a href="#contact" onClick={handleNavLinkClick}>Login</a> {/* Also close for Login button */}
+              </Button>
             </nav>
           </SheetContent>
         </Sheet>
