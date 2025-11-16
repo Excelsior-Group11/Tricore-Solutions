@@ -12,19 +12,19 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <> {/* Using a React.Fragment as the single child for TooltipProvider */}
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/services" element={<ServicesPage />} /> {/* Add ServicesPage route */}
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-        <Toaster />
-        <Sonner />
-      </>
+      {/* TooltipProvider now has BrowserRouter as its single child */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/services" element={<ServicesPage />} /> {/* Add ServicesPage route */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </TooltipProvider>
+    {/* Toaster and Sonner are now rendered as siblings to TooltipProvider, but still within QueryClientProvider */}
+    <Toaster />
+    <Sonner />
   </QueryClientProvider>
 );
 
