@@ -25,7 +25,7 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-primary-color transition-colors">
               <Globe size={16} />
-              <a href="https://tricore.solutions.co.za" target="_blank" rel="noopener noreferrer">tricore.solutions.co.za</a>
+              <a href="https://tricore-solutions.vercel.app/" target="_blank" rel="noopener noreferrer">tricore.solutions.co.za</a>
             </li>
             <li className="flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-primary-color transition-colors">
               <Phone size={16} />
